@@ -1,7 +1,7 @@
  <div align="center">
  <img align="center" width="230" src="./logo.svg" />
   <h2>Talik.js library, under construction,  welcome to any contribution. </h2>
-  <blockquote>Easy to integrate comments in your webpages</blockquote>
+  <blockquote>Easy way to integrate comments into your web pages</blockquote>
   
 
 
