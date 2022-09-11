@@ -1,0 +1,43 @@
+ 
+<div class="comment">
+			<div class="user-banner">
+				<div class="user">
+					<div class="avatar" style="background-color:#fff5e9;border-color:#ffe0bd; color:#F98600">
+						SِA
+						<span class="stat green"></span>
+					</div>
+						<h5>{{author}}</h5>
+				</div>
+				<button class="btn dropdown"><i class="ri-more-line"></i></button>
+			</div>
+			<div class="content">
+					<p>{{content}}</p>
+			</div>
+			<div class="footer">
+						 <img width="16" src="../assets/icons/face-smile-regular.svg" alt="icon" />
+			 
+          </i></button>
+				<div class="reactions">
+          
+					<button class="btn react">
+						<img width="16" src="../assets/icons/thumbs-up-regular.svg" alt="icon" />
+						4</button>
+				  <button class="btn react">
+						<img width="16" src="../assets/icons/thumbs-down-regular.svg" alt="icon" />
+						1</button>
+ 
+				</div>
+				<div class="divider"></div>
+				<a href="#">Reply</a>
+				<div class="divider"></div>
+				<span class="is-mute">18 sec</span>
+			</div>
+	
+		<div class="reply">
+      {{#each replies as |reply| }}
+        {{> comment author=reply.author content=reply.content}}
+      {{/each}}
+
+		</div>
+  </div>
+ 
