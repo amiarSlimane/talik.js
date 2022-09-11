@@ -1,6 +1,6 @@
  <div align="center">
  <img align="center" width="230" src="./logo.svg" />
-  <h2>Talik.js library</h2>
+  <h2>Talik.js library, under construction,  welcome to any contribution. </h2>
   <blockquote>Easy to integrate comments in your webpages</blockquote>
   
 
@@ -9,6 +9,7 @@
 
 
 <br/>
+
 ## ⭐️ The Library uses
 
 - Webpack 5
@@ -18,17 +19,14 @@
 - Jest unit testing
 - Daily [dependabot](https://dependabot.com) dependency updates
 
-## 📦 Getting Started
+## 📦 Install
 
 ```
 npm install talik.js
 ```
 
 ## 🚀 Usage
-
  
-
-### npm
 
 ```
 import Talik from 'talik.js';
