@@ -1,7 +1,9 @@
 import Talik from "../lib";
+
+document.body.innerHTML = ` <div id="talik">  </div>`;
 const talikInstance = new Talik();
 
 
-console.log("myLibraryInstance", talikInstance);
+console.log("talikInstance", talikInstance);
 
 talikInstance.init(); 
