@@ -1,34 +1,11 @@
-<div class="block">
-	<div class="block-header">
-		<div class="title">
-			<h2>Comments</h2>
-			<div class="tag">12</div>
-		</div>
-		<div class="group-radio">
-			<span class="button-radio">
-				<input id="latest" name="latest" type="radio" checked>
-				<label for="latest">Latest</label>
-			</span>
-			<div class="divider"></div>
-			<span class="button-radio">
-				<input id="popular" name="latest" type="radio">
-				<label for="popular">Popular</label>
-			</span>
-		</div>
-	</div>
+ 
 
 
- {{> input}}
 
 
 <div>
-{{#each comments as |comment|}}
-        {{> comment author=comment.author content=comment.content}}
-{{/each}}
-
-	 </div>
- 
-	<div class="load">
-		<span><i class="ri-refresh-line"></i>Loading</span>
-	</div>
+	{{#each comments as |comment|}}
+					{{> comment author=comment.author content=comment.content}}
+	{{/each}}
 </div>
+ 
