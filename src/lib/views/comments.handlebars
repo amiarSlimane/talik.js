@@ -5,7 +5,7 @@
 
 <div>
 	{{#each comments as |comment|}}
-					{{> comment author=comment.author content=comment.content}}
+					{{> comment author=comment.author id=comment._id content=comment.content}}
 	{{/each}}
 </div>
  

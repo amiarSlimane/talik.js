@@ -28,14 +28,17 @@
  
 				</div>
 				<div class="divider"></div>
-				<a href="#">Reply</a>
+				<button class="sendCommentReply" value="{{id}}">Reply</button>
 				<div class="divider"></div>
 				<span class="is-mute">18 sec</span>
 			</div>
 	
 		<div class="reply">
+			<div id="reply_{{id}}">
+
+			</div>
       {{#each replies as |reply| }}
-        {{> comment author=reply.author content=reply.content}}
+        {{> comment author=reply.author id=reply._id content=reply.content}}
       {{/each}}
 
 		</div>

@@ -2,9 +2,10 @@ import "./index.scss";
 
 var commentsTemplate = require("./views/comments.handlebars");
 var containerTemplate = require("./views/container.handlebars");
+var replyInputTemplate = require("./views/reply_input.handlebars");
 
 type comment = {
-  author: string,
+  author?: string,
   content: string
   replies?: comment[]
 }
@@ -15,6 +16,7 @@ class Talik {
   commentInput: HTMLElement;
   commentsBlock: HTMLElement;
   comments: comment[];
+  replyCommentId: string;
 
   constructor() {
 
@@ -38,14 +40,29 @@ class Talik {
         comments: this.comments,
       });
 
+      
       this.sendCommentButton = document.getElementById('sendComment');
-      this.sendCommentButton.addEventListener('click', this.addComment)
+      this.sendCommentButton.addEventListener('click', this.addComment);
+
+      let sendCommentReplyButtons = document.querySelectorAll('.sendCommentReply');
+
+      sendCommentReplyButtons.forEach((item)=>{
+        item.addEventListener('click',this.addCommentReply, false )
+
+      })
 
       this.commentsBlock = document.getElementById('talik_comments');
 
       this.commentInput = document.getElementById('commentInput');
     });
   }
+
+  wrapper = (evt:Event) => {
+    console.log('evt', evt);
+    
+      // this.addCommentReply(evt);
+  }
+  
 
   init = (): boolean => {
     console.log("Init Talik.js");
@@ -66,15 +83,12 @@ class Talik {
     const jsonResponse = await response.json();
     console.log('jsonResponse', jsonResponse.data.data)
     return jsonResponse.data.data;
-
-     
   }
 
 
   addComment = async () => {
 
     const comment: comment = {
-      author: 'slimane amiar',
       content: this.commentInput.innerHTML
     }
     const body = JSON.stringify(comment);
@@ -97,10 +111,40 @@ class Talik {
     this.commentsBlock.innerHTML = commentsTemplate({
       comments: this.comments,
     });
-
-
   }
 
+  addCommentReply = async (evt:Event) => {
+    
+    const { target } = evt;
+    this.replyCommentId = (target as HTMLButtonElement).value;
+
+    let replyInputContainer = document.getElementById(`reply_${this.replyCommentId}`)
+   
+    replyInputContainer.innerHTML = replyInputTemplate();
+    const comment: comment = {
+      content: this.commentInput.innerHTML
+    }
+    const body = JSON.stringify(comment);
+    const url = `http://localhost:3080/api/v1/comments/111111111111111111111111/comment/${this.replyCommentId}`;
+    const reqOptions: RequestInit = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: body
+    }
+
+    // const response = await fetch(url, reqOptions);
+    // const jsonResponse = await response.json();
+
+    // const addedComment: comment = jsonResponse.data
+
+    // this.comments.push(addedComment);
+
+    // this.commentsBlock.innerHTML = commentsTemplate({
+    //   comments: this.comments,
+    // });
+  }
 
   editComment = (): comment => {
 
