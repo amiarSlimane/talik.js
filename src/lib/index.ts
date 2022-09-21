@@ -10,6 +10,8 @@ type comment = {
   replies?: comment[]
 }
 
+const host = 'https://talik.io';
+
 class Talik {
 
   sendCommentButton: HTMLElement;
@@ -78,7 +80,7 @@ class Talik {
     const reqOptions: RequestInit = {
       method: 'GET'
     }
-    const url = `http://localhost:3080/api/v1/comments/post/${postId}?limit=10`
+    const url = `${host}/api/v1/comments/post/${postId}?limit=10`
     const response = await fetch(url, reqOptions);
     const jsonResponse = await response.json();
     console.log('jsonResponse', jsonResponse.data.data)
@@ -92,7 +94,7 @@ class Talik {
       content: this.commentInput.innerHTML
     }
     const body = JSON.stringify(comment);
-    const url = 'http://localhost:3080/api/v1/comments/111111111111111111111111';
+    const url = `${host}/api/v1/comments/111111111111111111111111`;
     const reqOptions: RequestInit = {
       method: 'POST',
       headers: {
@@ -125,7 +127,7 @@ class Talik {
       content: this.commentInput.innerHTML
     }
     const body = JSON.stringify(comment);
-    const url = `http://localhost:3080/api/v1/comments/111111111111111111111111/comment/${this.replyCommentId}`;
+    const url = `${host}/api/v1/comments/111111111111111111111111/comment/${this.replyCommentId}`;
     const reqOptions: RequestInit = {
       method: 'POST',
       headers: {
