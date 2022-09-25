@@ -29,11 +29,14 @@ module.exports = {
   entry: './src/lib/index.ts',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'build'),
-    library: "MyLibrary",
+    path: path.resolve(__dirname, 'dist'),
+    library: "talik",
     libraryTarget: 'umd',
+    
     clean: true
   },
+  node: false,
+  mode: 'development',
   optimization: {
     minimize: true,
     minimizer: [
@@ -58,17 +61,41 @@ module.exports = {
           // Translates CSS into CommonJS
           "css-loader",
           // Compiles Sass to CSS
-          "sass-loader",
+          "sass-loader"
+          // {
+          //   loader: "sass-loader",
+            // options: {
+            //   modules: {
+            //     mode: "local",
+            //     auto: true,
+            //     exportGlobals: true,
+            //     localIdentName: "[path][name]__[local]--[hash:base64:5]",
+            //     localIdentContext: path.resolve(__dirname, "src"),
+            //     localIdentHashSalt: "my-custom-hash",
+            //     namedExport: true,
+            //     exportLocalsConvention: "camelCase",
+            //     exportOnlyLocals: false,
+            //   },
+            // },
+          // },
         ],
+        
+      },
+      {
+
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+  
+        type: 'asset/resource',
+  
       },
       { 
         test: /\.handlebars$/, 
-        loader: "handlebars-loader" 
+        loader: "handlebars-loader",
+        options: {
+          knownHelpersOnly: false,
+          inlineRequires: '\/assets/icons\/'
+        },
       },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-     }
     ]
   },
   plugins: [
