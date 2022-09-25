@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       "noImplicitAny": true,
-      "outDir": "build/types",
-      "module": "esnext",
-      "target": "es5",
+      "outDir": "./dist/types",
+      "module": "CommonJS",
+      "target": "es6",
       "allowJs": true,
       "sourceMap": true,
       "declaration": true,
