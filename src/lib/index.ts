@@ -4,7 +4,7 @@ var commentsTemplate = require("./views/comments.handlebars");
 var containerTemplate = require("./views/container.handlebars");
 var replyInputTemplate = require("./views/reply_input.handlebars");
 
-type comment = {
+interface comment  {
   author?: string,
   content: string
   replies?: comment[]
@@ -23,6 +23,20 @@ class Talik {
   constructor() {
 
     console.log("Talik constructor loaded");
+
+   
+  }
+
+  wrapper = (evt:Event) => {
+    console.log('evt', evt);
+    
+      // this.addCommentReply(evt);
+  }
+  
+
+  init = (): boolean => {
+    console.log("Init Talik.js");
+
 
     const talikBlock = document.getElementById("talik");
 
@@ -57,18 +71,7 @@ class Talik {
 
       this.commentInput = document.getElementById('commentInput');
     });
-  }
-
-  wrapper = (evt:Event) => {
-    console.log('evt', evt);
     
-      // this.addCommentReply(evt);
-  }
-  
-
-  init = (): boolean => {
-    console.log("Init Talik.js");
-
     return true;
   };
 
@@ -83,7 +86,6 @@ class Talik {
     const url = `${host}/api/v1/comments/post/${postId}?limit=10`
     const response = await fetch(url, reqOptions);
     const jsonResponse = await response.json();
-    console.log('jsonResponse', jsonResponse.data.data)
     return jsonResponse.data.data;
   }
 
