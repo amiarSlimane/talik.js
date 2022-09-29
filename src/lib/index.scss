@@ -240,18 +240,35 @@ h5 {
 		font-size: 18px;
 		transition: 0.15s ease-in-out;
 	}
+	&.sm {
+		height: 27px !important;
+	}
 	&.primary {
 		min-width: 64px;
 		padding: 8px 12px;
 		height: 40px;
 		color: #fff;
 		display: inline-flex;
-		background: #0085ff;
+		background: #d12b56;
 		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
 			0px 1px 1px rgba(0, 0, 0, 0.08);
 		border-radius: 8px;
 		&:hover {
-			background: lighten(#0085ff, 10%);
+			background: lighten(#d12b56, 10%);
+		}
+	}
+	&.secondary {
+		min-width: 64px;
+		padding: 8px 12px;
+		height: 40px;
+		color: #fff;
+		display: inline-flex;
+		background: #9c7881;
+		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+			0px 1px 1px rgba(0, 0, 0, 0.08);
+		border-radius: 8px;
+		&:hover {
+			background: lighten(#9c7881, 10%);
 		}
 	}
 	&:hover {
