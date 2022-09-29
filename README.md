@@ -22,7 +22,7 @@
 ## 📦 Install
 
 ```
-npm install talik.js
+npm install talik
 ```
 
 ## 🚀 Usage
@@ -31,6 +31,7 @@ npm install talik.js
 ```
 import Talik from 'talik.js';
 const TalikInstance = new Talik();
+talikInstance.init(); 
 ...
 ```
 
