@@ -113,6 +113,9 @@ class Talik {
     this.commentsBlock.innerHTML = commentsTemplate({
       comments: this.comments,
     });
+
+
+    this.attachEvents();
   }
 
   attachEvents =  ()=>{
