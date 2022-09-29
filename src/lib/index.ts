@@ -1,19 +1,19 @@
-import {flatten, unflatten} from "flat";
+import { flatten, unflatten } from "flat";
 import "./index.scss";
 
 var commentsTemplate = require("./views/comments.handlebars");
 var containerTemplate = require("./views/container.handlebars");
 var replyInputTemplate = require("./views/reply_input.handlebars");
 
-interface comment  {
+interface comment {
   author?: string,
   content: string
   replies?: comment[]
 }
 
-let host = 'https://talik.io';
-//let host = 'http://localhost:7000';
- 
+// let host = 'https://talik.io';
+let host = 'http://localhost:7000';
+
 
 class Talik {
 
@@ -27,15 +27,15 @@ class Talik {
 
     console.log("Talik constructor loaded");
 
-   
+
   }
 
-  wrapper = (evt:Event) => {
+  wrapper = (evt: Event) => {
     console.log('evt', evt);
-    
-      // this.addCommentReply(evt);
+
+    // this.addCommentReply(evt);
   }
-  
+
 
   init = (): boolean => {
     console.log("Init Talik.js");
@@ -59,22 +59,17 @@ class Talik {
         comments: this.comments,
       });
 
-      
+
       this.sendCommentButton = document.getElementById('sendComment');
-      this.sendCommentButton.addEventListener('click', this.addComment);
+     
 
-      let sendCommentReplyButtons = document.querySelectorAll('.sendCommentReply');
-
-      sendCommentReplyButtons.forEach((item)=>{
-        item.addEventListener('click',this.addCommentReply, false )
-
-      })
+      this.attachEvents();
 
       this.commentsBlock = document.getElementById('talik_comments');
 
       this.commentInput = document.getElementById('commentInput');
     });
-    
+
     return true;
   };
 
@@ -120,28 +115,40 @@ class Talik {
     });
   }
 
-  addCommentReply = async (evt:Event) => {
-    
+  attachEvents =  ()=>{
+    this.sendCommentButton = document.getElementById('sendComment');
+    this.sendCommentButton.addEventListener('click', this.addComment);
+
+    let sendCommentReplyButtons = document.querySelectorAll('.sendCommentReply');
+
+    sendCommentReplyButtons.forEach((item) => {
+      item.addEventListener('click', this.addCommentReply, false)
+
+    });
+
+  }
+  addCommentReply = async (evt: Event) => {
+
     const { target } = evt;
     this.replyCommentId = (target as HTMLButtonElement).value;
 
     let replyInputContainer = document.getElementById(`reply_${this.replyCommentId}`)
-   
-    replyInputContainer.innerHTML = replyInputTemplate({id:this.replyCommentId});
-   
+
+    replyInputContainer.innerHTML = replyInputTemplate({ id: this.replyCommentId });
+
     const sendReplyButton = document.getElementById(`send_reply_${this.replyCommentId}`);
-    sendReplyButton.addEventListener('click', this.sendReply)
-   
+    sendReplyButton.addEventListener('click', this.sendReply, true)
+
   }
 
-  sendReply = async (evt:Event)=>{
+  sendReply = async (evt: Event) => {
 
     const { target } = evt;
     const replyCommentId = (target as HTMLButtonElement).value;
 
     const reply_content = document.getElementById(`reply_content_${replyCommentId}`);
     console.log('Sending the reply', reply_content.innerHTML);
-   
+
     const comment: comment = {
       content: reply_content.innerHTML
     }
@@ -163,31 +170,33 @@ class Talik {
 
     const flatten_comments = flatten(this.comments);
 
-    const found = Object.keys(flatten_comments).find(key=>flatten_comments[key]===replyCommentId);
-    const commentPath = found.substring(0, found.length-4);
-    
-    console.log('commentPath ', commentPath);
- 
-    
-   let newPath = '';
-   commentPath.split('.').forEach((key)=>{
-    const index = parseInt(key);
-    if(isNaN(index)){
-      newPath = newPath+`['${key}']`
-    }else{
-      newPath = newPath+`[${key}]`
-    }
-   })
+    const found = Object.keys(flatten_comments).find(key => flatten_comments[key] === replyCommentId);
+    const commentPath = found.substring(0, found.length - 4);
 
-   const cc = this.comments;
-   const toeval = `cc${newPath}`;
-   const parentOfReply = eval(toeval);
-   parentOfReply.replies.push(addedCommentReply)
- 
-    
+    console.log('commentPath ', commentPath);
+
+
+    let newPath = '';
+    commentPath.split('.').forEach((key) => {
+      const index = parseInt(key);
+      if (isNaN(index)) {
+        newPath = newPath + `['${key}']`
+      } else {
+        newPath = newPath + `[${key}]`
+      }
+    })
+
+    const comments = this.comments;
+    const toeval = `comments${newPath}`;
+    const parentOfReply = eval(toeval);
+    parentOfReply.replies.push(addedCommentReply)
+
+
     this.commentsBlock.innerHTML = commentsTemplate({
       comments: this.comments,
     });
+
+    this.attachEvents();
 
   }
 
