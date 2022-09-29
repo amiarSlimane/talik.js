@@ -15,6 +15,7 @@ declare class Talik {
     init: () => boolean;
     getComments: () => Promise<comment[]>;
     addComment: () => Promise<void>;
+    attachEvents: () => void;
     addCommentReply: (evt: Event) => Promise<void>;
     sendReply: (evt: Event) => Promise<void>;
     editComment: () => comment;
