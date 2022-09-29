@@ -1,3 +1,4 @@
+import {flatten, unflatten} from "flat";
 import "./index.scss";
 
 var commentsTemplate = require("./views/comments.handlebars");
@@ -10,7 +11,9 @@ interface comment  {
   replies?: comment[]
 }
 
-const host = 'https://talik.io';
+let host = 'https://talik.io';
+//let host = 'http://localhost:7000';
+ 
 
 class Talik {
 
@@ -124,12 +127,26 @@ class Talik {
 
     let replyInputContainer = document.getElementById(`reply_${this.replyCommentId}`)
    
-    replyInputContainer.innerHTML = replyInputTemplate();
+    replyInputContainer.innerHTML = replyInputTemplate({id:this.replyCommentId});
+   
+    const sendReplyButton = document.getElementById(`send_reply_${this.replyCommentId}`);
+    sendReplyButton.addEventListener('click', this.sendReply)
+   
+  }
+
+  sendReply = async (evt:Event)=>{
+
+    const { target } = evt;
+    const replyCommentId = (target as HTMLButtonElement).value;
+
+    const reply_content = document.getElementById(`reply_content_${replyCommentId}`);
+    console.log('Sending the reply', reply_content.innerHTML);
+   
     const comment: comment = {
-      content: this.commentInput.innerHTML
+      content: reply_content.innerHTML
     }
     const body = JSON.stringify(comment);
-    const url = `${host}/api/v1/comments/111111111111111111111111/comment/${this.replyCommentId}`;
+    const url = `${host}/api/v1/comments/111111111111111111111111/comment/${replyCommentId}`;
     const reqOptions: RequestInit = {
       method: 'POST',
       headers: {
@@ -138,17 +155,42 @@ class Talik {
       body: body
     }
 
-    // const response = await fetch(url, reqOptions);
-    // const jsonResponse = await response.json();
+    const response = await fetch(url, reqOptions);
+    const jsonResponse = await response.json();
 
-    // const addedComment: comment = jsonResponse.data
+    const addedCommentReply: comment = jsonResponse.data
 
-    // this.comments.push(addedComment);
 
-    // this.commentsBlock.innerHTML = commentsTemplate({
-    //   comments: this.comments,
-    // });
+    const flatten_comments = flatten(this.comments);
+
+    const found = Object.keys(flatten_comments).find(key=>flatten_comments[key]===replyCommentId);
+    const commentPath = found.substring(0, found.length-4);
+    
+    console.log('commentPath ', commentPath);
+ 
+    
+   let newPath = '';
+   commentPath.split('.').forEach((key)=>{
+    const index = parseInt(key);
+    if(isNaN(index)){
+      newPath = newPath+`['${key}']`
+    }else{
+      newPath = newPath+`[${key}]`
+    }
+   })
+
+   const cc = this.comments;
+   const toeval = `cc${newPath}`;
+   const parentOfReply = eval(toeval);
+   parentOfReply.replies.push(addedCommentReply)
+ 
+    
+    this.commentsBlock.innerHTML = commentsTemplate({
+      comments: this.comments,
+    });
+
   }
+
 
   editComment = (): comment => {
 
