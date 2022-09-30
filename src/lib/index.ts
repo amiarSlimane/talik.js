@@ -10,7 +10,8 @@ interface comment {
   content: string
   replies?: comment[]
 }
-
+declare const PRODUCTION: boolean;
+declare const SERVICE_URL: string;
  
 console.log(`isProduction ${PRODUCTION}`);
 console.log(`SERVICE_URL ${SERVICE_URL}`);
