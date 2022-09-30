@@ -102,7 +102,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/index.scss'
     }),
-    new webpack.BannerPlugin(banner)
+    new webpack.BannerPlugin(banner),
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(true),
+      SERVICE_URL: JSON.stringify('https://talik.io')
+    })
   ],
   resolve: {
     extensions: ['.ts', '.js', '.json']

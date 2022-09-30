@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -77,6 +78,10 @@ module.exports = {
       filename: 'css/index.scss'
     }),
     new HtmlWebpackPlugin(),
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(false),
+      SERVICE_URL: JSON.stringify('http://localhost:7000')
+    })
   ],
   resolve: {
     extensions: ['.ts', '.js', '.json']
