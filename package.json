@@ -1,6 +1,6 @@
 {
   "name": "talik",
-  "version": "1.3.4",
+  "version": "1.3.6",
   "description": "Comments integration library from talik.io ",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
