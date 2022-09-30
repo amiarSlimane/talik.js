@@ -160,7 +160,7 @@ body {
 	&:not(.comment:first-child) {
 		padding-bottom: 12px;
 		margin-bottom: 12px;
-		border-bottom: 1px solid #e8e8e8;
+		// border-bottom: 1px solid #e8e8e8;
 	}
 	& + & {
 		padding-top: 12px;
@@ -365,5 +365,5 @@ h2 {
 
 }
 #talik_comments{
-	overflow: scroll;
+	overflow-x: auto;
 }
