@@ -11,8 +11,10 @@ interface comment {
   replies?: comment[]
 }
 
-// let host = 'https://talik.io';
-let host = 'http://localhost:7000';
+ 
+console.log(`isProduction ${PRODUCTION}`);
+console.log(`SERVICE_URL ${SERVICE_URL}`);
+ 
 
 
 class Talik {
@@ -81,7 +83,7 @@ class Talik {
     const reqOptions: RequestInit = {
       method: 'GET'
     }
-    const url = `${host}/api/v1/comments/post/${postId}?limit=10`
+    const url = `${SERVICE_URL}/api/v1/comments/post/${postId}?limit=10`
     const response = await fetch(url, reqOptions);
     const jsonResponse = await response.json();
     return jsonResponse.data.data;
@@ -94,7 +96,7 @@ class Talik {
       content: this.commentInput.innerHTML
     }
     const body = JSON.stringify(comment);
-    const url = `${host}/api/v1/comments/111111111111111111111111`;
+    const url = `${SERVICE_URL}/api/v1/comments/111111111111111111111111`;
     const reqOptions: RequestInit = {
       method: 'POST',
       headers: {
@@ -156,7 +158,7 @@ class Talik {
       content: reply_content.innerHTML
     }
     const body = JSON.stringify(comment);
-    const url = `${host}/api/v1/comments/111111111111111111111111/comment/${replyCommentId}`;
+    const url = `${SERVICE_URL}/api/v1/comments/111111111111111111111111/comment/${replyCommentId}`;
     const reqOptions: RequestInit = {
       method: 'POST',
       headers: {
