@@ -37,9 +37,13 @@
 			<div id="reply_{{id}}">
 
 			</div>
-      {{#each replies as |reply| }}
-        {{> comment author=reply.author id=reply._id content=reply.content}}
-      {{/each}}
+			
+			{{[helpers/reverse] replies }}
+			{{#each replies as |reply| }}
+				{{> comment author=reply.author id=reply._id content=reply.content}}
+			{{/each}}
+			 
+      
 
 		</div>
   </div>
