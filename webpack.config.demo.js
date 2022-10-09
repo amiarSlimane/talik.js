@@ -1,10 +1,7 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// var Handlebars = require('handlebars/runtime');
-// var helpers = require('handlebars-helper');
 
-// Handlebars.registerHelper('reverse', helpers.reverse);
 module.exports = {
   mode: "development",
   devtool: 'cheap-module-source-map',
