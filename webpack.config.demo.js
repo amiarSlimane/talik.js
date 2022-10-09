@@ -1,7 +1,10 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// var Handlebars = require('handlebars/runtime');
+// var helpers = require('handlebars-helper');
 
+// Handlebars.registerHelper('reverse', helpers.reverse);
 module.exports = {
   mode: "development",
   devtool: 'cheap-module-source-map',
@@ -50,28 +53,11 @@ module.exports = {
         loader: "handlebars-loader",
         options: {
           knownHelpersOnly: false,
-          inlineRequires: '\/assets/icons\/'
+          inlineRequires: '\/assets/icons\/',
         },
       },
-    //   {
-    //     test: /\.svg$/,
-    //     loader: 'svg-inline-loader'
-    // }
-    // {
-    //   test: /\.(png|jpg|gif)$/i,
-    //   use: [
-    //     {
-    //       loader: 'url-loader',
-    //       options: {
-    //         limit: 8192,
-    //       }
-    //     },
-    //   ],
-
-    //  type: 'javascript/auto'
-    // },
-   
-    ]
+    ],
+ 
   },
   plugins: [
     new MiniCssExtractPlugin({
