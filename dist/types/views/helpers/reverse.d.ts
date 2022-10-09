@@ -1,2 +1,1 @@
-export = reverse;
-declare function reverse(array: any): void;
+declare const reverse: (array: []) => void;
