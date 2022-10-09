@@ -111,13 +111,13 @@ class Talik {
 
     const addedComment: comment = jsonResponse.data
 
-    this.comments.push(addedComment);
+    this.comments.unshift(addedComment);
 
     this.commentsBlock.innerHTML = commentsTemplate({
       comments: this.comments,
     });
 
-
+    this.commentInput.innerHTML = "";
     this.attachEvents();
   }
 
@@ -179,8 +179,6 @@ class Talik {
     const found = Object.keys(flatten_comments).find(key => flatten_comments[key] === replyCommentId);
     const commentPath = found.substring(0, found.length - 4);
 
-    console.log('commentPath ', commentPath);
-
 
     let newPath = '';
     commentPath.split('.').forEach((key) => {
@@ -202,6 +200,7 @@ class Talik {
       comments: this.comments,
     });
 
+    reply_content.innerHTML = "";
     this.attachEvents();
 
   }
